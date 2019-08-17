@@ -1,0 +1,54 @@
+<html>
+<head>
+<title> Resistance Fera </title>
+<script type="text/javascript">
+
+var rodada = 0;
+
+function enviar() {
+	rodada += 1;
+
+	var sd = document.getElementById("votos").value;
+	var x0 = 0, x1 = 0, x2 = 0;
+	for (var i = 0; i < sd.length; i++) {
+		if (sd[i] == '0') x0++;
+		else if (sd[i] == '1') x1++;
+		else x2++;
+	}
+	var res;
+	if (x2 > 0) {
+		alert("TROLLOU!!!!");
+		return;
+	}
+	
+	document.getElementById("votos").value = "";
+	var nomes = "";
+	for (var i = 1; i <= 5; i++) {
+		nomes += document.getElementById("nome"+i).value + " ";	
+		document.getElementById("nome"+i).value = "";
+	}
+	
+	var antes = "Rodada " + rodada + ": ";
+	
+	if ((rodada == 4 && x0 > 1) || (rodada != 4 && x0 > 0)) document.getElementById("pessoas").innerHTML += "<h1><p style='color: red'>" + antes + "WA</p> Pessoas: " + nomes + "</h1>";
+	else document.getElementById("pessoas").innerHTML += "<h1><p style='color: green'>" + antes + " AC</p> Pessoas: " + nomes + "</h1>";
+
+}
+</script>
+</head>
+<body>
+	HORA DA VOTACAO
+	<form method="post">
+		<label> Field: </label>
+		<input type="password" name="votos" id="votos" />
+		<br><br>
+		Nome = <input type="name" id="nome1" />		<br>
+		Nome = <input type="name" id="nome2" />		<br>
+		Nome = <input type="name" id="nome3" />		<br>
+		Nome = <input type="name" id="nome4" />		<br>
+		Nome = <input type="name" id="nome5" />		<br>
+		<input type="button" onclick="enviar()" value="Enviar" />
+	</form>
+	<div id="pessoas">
+	</div>
+</body>
